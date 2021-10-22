@@ -93,6 +93,9 @@ for s = 1:S
     for a=1:A
         statoApp = stato;
         
+        %%% MANCA IL CONTROLLO SE è UNO STATO TERMINALE %%%%
+        % SE CONSIDERO STATO TERMINALE , RIMANGO NELLO STATO TERMINALE
+        
         if(stato(a) ~= 1) % verifico se azione possibile diversa da 1 e da 3
             % se azione non possibile rimango nello stesso stato?
             %metto if==1
