@@ -12,7 +12,7 @@ list = [];
 
 % Selezione stati AMMISSIBiLI
 for s = 1:S
-    % valori 1->vuota, 2->X ,3->O
+    % valori 1->vuota, 2->X ,3->O  , avversario random O ,io metto le X
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), s);
     % controllo stato ammisibile -> e posso mettere = 0 riga e colonna per
     % tutte le azioni
