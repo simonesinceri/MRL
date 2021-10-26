@@ -12,29 +12,51 @@ function reward = verifyVictory(state)
 
 % problema nel caso 2 sequenze di vittoria
 % me la spiccio con l'ordine degli if , metto prima gli if delle X
-
+reward = 0;
 % valori 1->vuota, 2->X ,3->O
-    %controllo per riga
-    if(state(1:3) == [2 2 2] | state(4:6) == [2 2 2] | state(7:9) == [2 2 2] | ...
-          [state(1) state(4) state(7)] == [2 2 2] | [state(2) state(5) state(8)] == [2 2 2] | ...
-          [state(3) state(6) state(9)] == [2 2 2] | [state(1) state(5) state(9)] == [2 2 2] | ...
-          [state(3) state(5) state(7)] == [2 2 2])
-      
-        reward = 1;
-        return
-        
-    elseif(state(1:3) == [3 3 3] | state(4:6) == [3 3 3] | state(7:9) == [3 3 3] | ...
-          [state(1) state(4) state(7)] == [3 3 3] | [state(2) state(5) state(8)] == [3 3 3] | ...
-          [state(3) state(6) state(9)] == [3 3 3] | [state(1) state(5) state(9)] == [3 3 3] | ...
-          [state(3) state(5) state(7)] == [3 3 3])
-      
-        reward = -1;
-        return
-        
-    else  % problema caso che dovrebbe dare 0 mi da -1
-        
-        reward = 0;
-        
-    end
+%controllo per riga
+if(state(1:3) == [2 2 2] | state(4:6) == [2 2 2] | state(7:9) == [2 2 2])
     
+    reward = 1;
+    return
+end
+%controllo per colonna
+if( [state(1) state(4) state(7)] == [2 2 2] | [state(2) state(5) state(8)] == [2 2 2] | ...
+        [state(3) state(6) state(9)] == [2 2 2])
+    
+    reward = 1;
+    return
+    
+end
+%controllo per diagonale
+if([state(1) state(5) state(9)] == [2 2 2] | [state(3) state(5) state(7)] == [2 2 2])
+    
+    reward = 1;
+    return
+end
+
+
+% caso [3 3 3 ]
+%controllo per riga
+if(state(1:3) == [3 3 3] | state(4:6) == [3 3 3] | state(7:9) == [3 3 3])
+    
+    reward = -1;
+    return
+    
+end
+%controllo per colonna
+if( [state(1) state(4) state(7)] == [3 3 3] | [state(2) state(5) state(8)] == [3 3 3] | ...
+        [state(3) state(6) state(9)] == [3 3 3])
+    
+    reward = -1;
+    return
+    
+end
+%controllo per diagonale
+if([state(1) state(5) state(9)] == [3 3 3] | [state(3) state(5) state(7)] == [3 3 3])
+    
+    reward = -1;
+    return
+end
+
 end
