@@ -75,9 +75,9 @@ end
 S = size(list,2);
 P = zeros(S,S,A);
 
-for s = 1:S
+for s = 1:S  % s indice per matrice 
     
-    st = list(s);
+    st = list(s); % numero vero che rappr stato con sub2ind
     
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), st);
     stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
@@ -96,8 +96,9 @@ for s = 1:S
         %%% MANCA IL CONTROLLO SE è UNO STATO TERMINALE %%%%
         % SE CONSIDERO STATO TERMINALE , RIMANGO NELLO STATO TERMINALE
         
-        if(stato(a) ~= 1) % verifico se azione possibile diversa da 1 e da 3
-            % se azione non possibile rimango nello stesso stato?
+        if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
+            % se azione non possibile rimango nello stesso stato 
+            % e anche se lo stato è terminale
             %metto if==1
             P(s,s,a) = 1;
             % in realtà è gia messa a zero per inizializzazione
@@ -111,7 +112,8 @@ for s = 1:S
             
             for k=1:A
                 statoApp2 = statoApp; % per aggiungere azione avversario
-                if(statoApp(k) == 1)
+                
+                if(statoApp(k) == 1) % e se non è vuota?
                     statoApp2(k) = 3;
                     sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
                         statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
@@ -135,7 +137,7 @@ R = zeros(S,A); % matrice Reward
 %scansira statie vedere se c'è vittoria
 for p=1:S
     
-    st = list(s+1);
+    st = list(p);
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), st);
     stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
     
@@ -152,5 +154,4 @@ end
 
     
 % ricompensa in funzione dello stato in cui mi trovo???
-%%
-fprintf("\nmario")
+
