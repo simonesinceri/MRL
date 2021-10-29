@@ -16,8 +16,6 @@ vO = [3 3 3];
 for s = 1:S
     % valori 1->vuota, 2->X ,3->O  , avversario random O ,io metto le X
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), s);
-    % controllo stato ammisibile -> e posso mettere = 0 riga e colonna per
-    % tutte le azioni
     state = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9]; % stato come vettore
     
     numCroce = 0;
@@ -32,8 +30,6 @@ for s = 1:S
             numCerchio = numCerchio+1;
         end
     end
-    % devo filtrare ancora gli stati con 3 simboli che formano vittoria
-    %ci deve essere soltanto una sequenza di 3 simboli uguali rig/col/diag
     
     %controllo righe
     for i=1:3:7
@@ -87,27 +83,16 @@ for s = 1:S  % s indice per matrice
     for a=1:A
         statoApp = stato;
         
-        %%% MANCA IL CONTROLLO SE è UNO STATO TERMINALE %%%%
-        % SE CONSIDERO STATO TERMINALE , RIMANGO NELLO STATO TERMINALE
-        
         if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
-            % se azione non possibile rimango nello stesso stato 
-            % e anche se lo stato è terminale
-            %metto if==1
+            % se azione non possibile rimango nello stesso stato  e anche se lo stato è terminale
             P(s,s,a) = 1;
-            % in realtà è gia messa a zero per inizializzazione
         else
             statoApp(a) = 2; % metto la mia azione
-            
-            %sp = sub2ind(3*ones(1,9),stateApp(1),stateApp(2),stateApp(3),stateApp(4),...
-            %   stateApp(5),stateApp(6),stateApp(7),stateApp(8),stateApp(9));
-            % stato successivo dopo mia azione devo considerare anche
-            % avversario
-            
+       
             for k=1:A
                 statoApp2 = statoApp; % per aggiungere azione avversario
                 
-                if(statoApp(k) == 1) % e se non è vuota?
+                if(statoApp(k) == 1) 
                     statoApp2(k) = 3;
                     sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
                         statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
@@ -120,10 +105,6 @@ for s = 1:S  % s indice per matrice
         end
     end
 end
-
-% costr matrice P azione per azione, scegliendo azione prob 1 finisco in e
-% con prob random(distrbuita uniformemente) stato successivo(azione avversario)
-% considerare AFTER STATE
 
 %% Costruzione R
 
@@ -145,4 +126,4 @@ for p=1:S
     end
 end
 
-    
+save data_tictactoe.mat P R list   
