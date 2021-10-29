@@ -1,3 +1,15 @@
+% Funzione per visualizzare graficamente lo stato
+% 
+%         X | O | O
+%        ---------- 
+%           | X | O
+%        ---------- 
+%           |   |  
+
+%DEMO
+% [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), list(1));
+% stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
+% visualizeGrid(stato)
 function visualizeGrid(state)
 
 X = "X";
@@ -55,8 +67,3 @@ end
 end
 
 
-% DEMO
-% 
-% [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), list(1));
-% stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
-% visualizeGrid(stato)

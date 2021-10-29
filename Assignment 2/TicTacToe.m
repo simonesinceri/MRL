@@ -2,7 +2,7 @@
 % Costruzione matrici P e R
 
 clc
-clear all 
+clear all
 close all
 
 S = 3^9;
@@ -10,6 +10,8 @@ A = 9; % posizione dove metto il mio simbolo
 %%%%%%%%%%%% supponiamo cominci sempre l'avversario %%%%%%%%%%%%%%%%%%
 list = [];
 
+vX = [2 2 2];
+vO = [3 3 3];
 % Selezione stati AMMISSIBiLI
 for s = 1:S
     % valori 1->vuota, 2->X ,3->O  , avversario random O ,io metto le X
@@ -33,32 +35,24 @@ for s = 1:S
     % devo filtrare ancora gli stati con 3 simboli che formano vittoria
     %ci deve essere soltanto una sequenza di 3 simboli uguali rig/col/diag
     
+    %controllo righe
+    for i=1:3:7
+        if(isequal(state(i:i+2),vX) || isequal(state(i:i+2),vO))
+            numSeqEnd = numSeqEnd +1;
+        end
+    end
+    %controllo colonne
+    for i=1:3
+        if(isequal([state(i) state(i+3) state(i+6)],vX) || isequal([state(i) state(i+3) state(i+6)],vO))
+            numSeqEnd = numSeqEnd +1;
+        end
+    end
     
-    %controllo per riga
-    if(state(1:3) == [2 2 2] | state(1:3) == [3 3 3])
+    %Controllo Diagonali
+    if(isequal([state(1) state(5) state(9)],vX)|| isequal([state(1) state(5) state(9)],vO))
         numSeqEnd = numSeqEnd +1;
     end
-    if(state(4:6) == [2 2 2] | state(4:6) == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    if(state(7:9) == [2 2 2] | state(7:9) == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    %controllo per colonna
-    if([state(1) state(4) state(7)] == [2 2 2] | [state(1) state(4) state(7)] == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    if([state(2) state(5) state(8)] == [2 2 2] | [state(2) state(5) state(8)] == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    if([state(3) state(6) state(9)] == [2 2 2] | [state(3) state(6) state(9)] == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    %controllo diagonali
-    if([state(1) state(5) state(9)] == [2 2 2] | [state(1) state(5) state(9)] == [3 3 3])
-        numSeqEnd = numSeqEnd +1;
-    end
-    if([state(3) state(5) state(7)] == [2 2 2] | [state(3) state(5) state(7)] == [3 3 3])
+    if(isequal([state(3) state(5) state(7)],vX) || isequal([state(3) state(5) state(7)],vO))
         numSeqEnd = numSeqEnd +1;
     end
     
@@ -133,25 +127,22 @@ end
 
 %% Costruzione R
 
-R = zeros(S,A); % matrice Reward
-%scansira statie vedere se c'è vittoria
-for p=1:S
+rew = zeros(1,S);
+for i=1:S
     
-    st = list(p);
+    st = list(i);
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), st);
     stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
     
+    rew(i)= verifyVictory(stato);
+end
+
+R = zeros(S,A); % matrice Reward
+
+for p=1:S
     for a=1:A
-        statoApp = stato;
-        if(stato(a) == 1) % se casella vuota
-            statoApp(a) = 2; %metto la X
-            %controllo sulla vittoria
-            % stati con azione avversario
-        end
-        
+        R(p,a)= sum((P(p,:,a)).*rew);
     end
 end
 
     
-% ricompensa in funzione dello stato in cui mi trovo???
-

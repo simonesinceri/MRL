@@ -12,51 +12,63 @@ function reward = verifyVictory(state)
 
 % problema nel caso 2 sequenze di vittoria
 % me la spiccio con l'ordine degli if , metto prima gli if delle X
+
+vX = [2 2 2];
+vO = [3 3 3];
+
 reward = 0;
-% valori 1->vuota, 2->X ,3->O
-%controllo per riga
-if(state(1:3) == [2 2 2] | state(4:6) == [2 2 2] | state(7:9) == [2 2 2])
-    
+
+% caso Vittoria X  [2 2 2]
+%controllo righe
+    for i=1:3:7
+        if(isequal(state(i:i+2),vX))
+            reward = 1;
+            return
+        end
+    end
+%controllo colonne
+for i=1:3
+    if(isequal([state(i) state(i+3) state(i+6)],vX))
+        reward = 1;
+        return
+    end
+end
+
+%Controllo Diagonali
+if(isequal([state(1) state(5) state(9)],vX))
     reward = 1;
     return
 end
-%controllo per colonna
-if( [state(1) state(4) state(7)] == [2 2 2] | [state(2) state(5) state(8)] == [2 2 2] | ...
-        [state(3) state(6) state(9)] == [2 2 2])
-    
-    reward = 1;
-    return
-    
-end
-%controllo per diagonale
-if([state(1) state(5) state(9)] == [2 2 2] | [state(3) state(5) state(7)] == [2 2 2])
-    
+if(isequal([state(3) state(5) state(7)],vX))
     reward = 1;
     return
 end
 
+% caso Vittoria O  [3 3 3]
+%controllo righe
+    for i=1:3:7
+        if(isequal(state(i:i+2),vO))
+            reward = -1;
+            return
+        end
+    end
+%controllo colonne
+for i=1:3
+    if(isequal([state(i) state(i+3) state(i+6)],vO))
+        reward = -1;
+        return
+    end
+end
 
-% caso [3 3 3 ]
-%controllo per riga
-if(state(1:3) == [3 3 3] | state(4:6) == [3 3 3] | state(7:9) == [3 3 3])
-    
-    reward = -1;
-    return
-    
-end
-%controllo per colonna
-if( [state(1) state(4) state(7)] == [3 3 3] | [state(2) state(5) state(8)] == [3 3 3] | ...
-        [state(3) state(6) state(9)] == [3 3 3])
-    
-    reward = -1;
-    return
-    
-end
-%controllo per diagonale
-if([state(1) state(5) state(9)] == [3 3 3] | [state(3) state(5) state(7)] == [3 3 3])
-    
+%Controllo Diagonali
+if(isequal([state(1) state(5) state(9)],vO))
     reward = -1;
     return
 end
+if(isequal([state(3) state(5) state(7)],vO))
+    reward = -1;
+    return
+end
+
 
 end

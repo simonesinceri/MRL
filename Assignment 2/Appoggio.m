@@ -40,3 +40,66 @@
 %             
 %         end
 %     end
+
+
+
+%%
+%controllo stati vecchio
+
+
+    %controllo per riga
+%     if(isequal(state(1:3),vX) || isequal(state(1:3),vO))
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if(state(1:3) == [2 2 2])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if (state(1:3) == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     
+%     if(state(4:6) == [2 2 2])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if (state(4:6) == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if(state(7:9) == [2 2 2])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if( state(7:9) == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     %controllo per colonna
+%     if([state(1) state(4) state(7)] == [2 2 2] )
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if([state(1) state(4) state(7)] == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if([state(2) state(5) state(8)] == [2 2 2] )
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if( [state(2) state(5) state(8)] == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if([state(3) state(6) state(9)] == [2 2 2] )
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%      if( [state(3) state(6) state(9)] == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     %controllo diagonali
+%     
+%      if([state(1) state(5) state(9)] == [2 2 2] )
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if( [state(1) state(5) state(9)] == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%     if([state(3) state(5) state(7)] == [2 2 2] )
+%         numSeqEnd = numSeqEnd +1;
+%     end
+%      if( [state(3) state(5) state(7)] == [3 3 3])
+%         numSeqEnd = numSeqEnd +1;
+%     end
