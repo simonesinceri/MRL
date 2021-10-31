@@ -6,20 +6,23 @@ close all
 
 % Modello
 
-T = 100;
+T = 1000;
 n = 10;
 %epsilon = 0.3; % eventuale for per paragonare i vari epsilon
 
-mu = ones(T+1,n); % medie iniziali
+mu = zeros(T+1,n); 
+mu(1,:) = normrnd(0,10,1,10);% medie iniziali
+
 sigma = 0.5*ones(1,n);% varianze
 
 R = zeros(T,n);
-
+% genero ricompense
 for i=1:T
     
     R(i,:) = normrnd(mu(i), sigma,1,10);
    % mu(i+1,:) = randi([-1 1],1,10); % ????
-    mu(i+1,:) = rand(1,10)-rand(1,10);
+    %mu(i+1,:) = rand(1,10)-rand(1,10);
+    mu(i+1,:) = mu(i,:) + 0.01*normrnd(0,10,1,10);
     
 end
 
@@ -47,8 +50,11 @@ for i=1:T
     averageRew1(i) = sumRew/i;
     
     ottim = find(mu(i,:) == max(mu(i,:)),1);
-    percent(i) = (Qt(a)/mu(ottim))*100;
+    percent(i) = (Qt(a)/mu(ottim))*100; % percentuale dell'ottimalitàa della azione scelta
     
+    % percentuale di azioni ottime prese vs tempo
+    
+    % aggiornamento non mi torna, dovrebbe essere giusto
     Nt(a) = Nt(a) + 1;
     Qt(i,a) = Qt(i,a) + 1/Nt(a)*(R(i,a)-Qt(i,a));
     %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
@@ -70,7 +76,7 @@ plot(mu(1:end-1,1))
 legend('Qt','mu')
 
 figure()
-plot(percent)
+plot(percent)  % percent non va bene
 %% Sample Average Method (alpha cost)
 
 alpha = 0.5;
