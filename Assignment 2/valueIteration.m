@@ -3,7 +3,7 @@ close all
 clc
 
 load data_tictactoe.mat
-gamma = 0.9;
+gamma = 0.5; % funziona con tutti valori di gamma
 
 S = size(P,1);
 A = size(R,2);
@@ -15,7 +15,7 @@ prevValue = randn(S,1);
 tic
 while true
     [value, policy] = policyOptim(P, R, gamma, value);  
-    if norm(value - prevValue) < 1e-6
+    if norm(value - prevValue) < 1e-3
         break;
     else
         prevValue = value;

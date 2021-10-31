@@ -3,7 +3,7 @@ close all
 clc
 
 load data_tictactoe.mat
-gamma = 0.95;
+gamma = 0.9; % funziona con tutti valori di gamma
 
 S = size(P,1);
 A = size(R,2);

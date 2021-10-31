@@ -1,10 +1,6 @@
 % funzione che esamina lo stato e determina
 % se è finale, assegnando la reward in base al vincitore
 
-% la posso usare anche come funz "isTerminal" in base ai valori, che mi da
-% capisco se stato terminale, caso pareggio -> grilgia piena non posso
-% andare avanti
-
 %COMINCIA L'AVVERSARIO -> quindi se ci sono 2 sequenza vittoria ho vinto io
 % altrimenti sarebbe già stato terminale
 

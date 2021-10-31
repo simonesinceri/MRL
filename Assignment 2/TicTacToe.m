@@ -12,7 +12,8 @@ list = [];
 
 vX = [2 2 2];
 vO = [3 3 3];
-% Selezione stati AMMISSIBiLI
+
+%%%%%%%%  Selezione stati AMMISSIBILI  %%%%%%%%%
 for s = 1:S
     % valori 1->vuota, 2->X ,3->O  , avversario random O ,io metto le X
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), s);
@@ -56,8 +57,7 @@ for s = 1:S
     if(numCroce == numCerchio-1 && numSeqEnd<3) % stato ammissibile
         list = [list, s]; % lista indici stati ammissibili
     end
-    % caso con due sequenze di vittoria -> vedi chi gioca prima per capire
-    % vincitore
+    
 end
 
 %% Costruzione P
@@ -84,7 +84,7 @@ for s = 1:S  % s indice per matrice
         statoApp = stato;
         
         if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
-            % se azione non possibile rimango nello stesso stato  e anche se lo stato è terminale
+            % se azione non possibile rimango nello stesso stato e anche se lo stato è terminale
             P(s,s,a) = 1;
         else
             statoApp(a) = 2; % metto la mia azione
@@ -97,7 +97,6 @@ for s = 1:S  % s indice per matrice
                     sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
                         statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
                     sp = find(list == sp, 1);
-                    %P(s,sp,a) =   P(s,sp,a) + 1/(numVuote-2);
                     P(s,sp,a) =  1/(numVuote-1);
                 end
             end
