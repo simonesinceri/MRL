@@ -81,7 +81,7 @@ plot(mu(1:end-1,1))
 legend('Qt','mu')
 
 figure()
-plot(BA_avg1)  % percent non va bene
+plot(BA_avg1) 
 %% Sample Average Method (alpha cost)
 
 alpha = 0.5;
