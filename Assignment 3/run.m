@@ -46,8 +46,8 @@ y_p = y_p + 1 + 5;
 if(y<=5 ||  x<=5 || (x>10 && y>15))
     r = -10000;
     sp = -1;
-    
-elseif((x>5 && x<10) && y == 20) % linea traguardo
+               
+elseif((x>5 && x<=10) && y == 20) % linea traguardo
     r = 0;
     sp = -1;
     
