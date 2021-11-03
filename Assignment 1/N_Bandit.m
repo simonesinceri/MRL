@@ -6,12 +6,12 @@ close all
 
 % Modello
 
-T = 100000;
+T = 1e5;
 n = 10;
 %epsilon = 0.3; % eventuale for per paragonare i vari epsilon
 
-mu = zeros(T+1,n); 
-mu(1,:) = normrnd(0,10,1,10);% medie iniziali
+mu = ones(T+1,n);  % partono tutte con stessa media = 1
+%mu(1,:) = normrnd(0,10,1,10);% medie iniziali
 
 sigma = 0.5*ones(1,n);% varianze
 
