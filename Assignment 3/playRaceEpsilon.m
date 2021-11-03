@@ -17,8 +17,7 @@ while s(end) ~= -1
     end
     [St1, Rt1] = run(St,At);
     s = [s, St1];
-    a = [a, At]; % devo skippare indice di +1
-    %a = vertcat(a,At);
+    a = [a, At];
     r = [r, Rt1];
 end
 
