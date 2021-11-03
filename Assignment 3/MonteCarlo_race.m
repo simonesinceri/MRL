@@ -2,8 +2,8 @@ clear all
 close all
 clc
 
-numEpisodes = 1e4;
-gamma = 0.9;   % modifica qst elementi  gamma epsilon e diminuisci NumEp
+numEpisodes = 1e6;
+gamma = 1;   % modifica qst elementi  gamma epsilon e diminuisci NumEp
 epsilon = 0.3;
 
 S = 20*20*11*11;
@@ -13,7 +13,7 @@ N = zeros(S,A);
 Q = zeros(S,A);
 
 % devo cambiare policy -> azione è coppia valori
-policy = randi(2,S,2);
+policy = randi(3,S,2);
 policyIniz = policy;
 
 
@@ -31,6 +31,7 @@ for e = 1:numEpisodes
         e
         N(s(t),a(t)) = N(s(t),a(t)) + 1;% attenz in a(t)
         Q(s(t),a(t)) = Q(s(t),a(t)) + 1/N(s(t),a(t))*(G - Q(s(t),a(t)));
+        
         Astar = find(Q(s(t),:) == max(Q(s(t),:)), 1, 'first'); % a dimensione 2
         [A1,A2] = ind2sub([3 3], Astar); 
         policy(s(t),:) = [A1 A2];
@@ -38,7 +39,7 @@ for e = 1:numEpisodes
 end
 
 %%
-save mc_race_10e5.mat policy
+save mc_race_10e6_GAMMA1.mat policy
 %%
 
 GW = createGridWorld(20,20,'Kings');
