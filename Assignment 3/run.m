@@ -22,7 +22,7 @@ if(a_x == 1) % 1->0, 2 ->+1, 3->-1
     x_p = min(x_p, 5); %agg velocità
 elseif(a_x == 2)
     x_p = min(x_p + 1,5);
-else
+elseif(a_x == 3)
     x_p = min(x_p - 1,5);
 end
 
@@ -30,7 +30,7 @@ if(a_y == 1)
     y_p = min(y_p ,5);
 elseif(a_y == 2)
     y_p = min(y_p + 1,5);
-else
+elseif(a_y == 3)
     y_p = min(y_p - 1,5);
 end
 
