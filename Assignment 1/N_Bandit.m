@@ -3,32 +3,35 @@
 clc
 clear all
 close all
-
-% Modello
-
-T = 1e5;
+% 
+% % Modello
+% 
+T = 1e7;
 n = 10;
-%epsilon = 0.3; % eventuale for per paragonare i vari epsilon
-
-mu = ones(T+1,n);  % partono tutte con stessa media = 1
-%mu(1,:) = normrnd(0,10,1,10);% medie iniziali
-
-sigma = 0.5*ones(1,n);% varianze
-
-R = zeros(T,n);
-% genero ricompense
-for i=1:T
-    
-    R(i,:) = normrnd(mu(i), sigma,1,10);
-   % mu(i+1,:) = randi([-1 1],1,10); % ????
-    %mu(i+1,:) = rand(1,10)-rand(1,10);
-    mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10);
-    
-end
+epsilon = 0.1; % eventuale for per paragonare i vari epsilon
+% 
+% mu = ones(T+1,n);  % partono tutte con stessa media = 1
+% %mu(1,:) = normrnd(0,10,1,10);% medie iniziali
+% 
+% sigma = 0.5*ones(1,n);% varianze
+% 
+% R = zeros(T,n);
+% % genero ricompense
+% for i=1:T
+%     
+%     R(i,:) = normrnd(mu(i), sigma,1,10);
+%    % mu(i+1,:) = randi([-1 1],1,10); % ????
+%     %mu(i+1,:) = rand(1,10)-rand(1,10);
+%     mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10);
+%     
+% end
 
 
 
 % vari metodi
+load bandit_R_mu.mat
+
+
 %% Sample Average Method (alpha 1/k)
 
 Nt = zeros(1,n);
@@ -37,7 +40,7 @@ Qt = zeros(T+1,n);
 
 averageRew1 = zeros(1,T);
 sumRew = 0;
-epsilon = 0.5;
+%epsilon = 0.5;
 BA = 0;
 BA_avg1 = zeros(1,T);
 for i=1:T
@@ -77,7 +80,7 @@ end
 figure(3)
 hold on
 plot(Qt(1:end-1,1))
-plot(mu(1:end-1,1))
+%plot(mu(1:end-1,1))
 legend('Qt','mu')
 
 figure()
@@ -90,7 +93,7 @@ Nt = zeros(1,n);
 Qt = zeros(T+1,n);
 averageRew2 = zeros(1,T);
 sumRew = 0;
-epsilon = 0.3;
+%epsilon = 0.3;
 BA = 0;
 BA_avg2 = zeros(1,T);
 
@@ -161,7 +164,7 @@ end
 
 
 
-%% Preference Based  Action Selection method
+%% Preference Based  Action Selection method     Rivedi questo metodo
 
 alpha = 0.5;
 
