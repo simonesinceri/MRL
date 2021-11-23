@@ -8,7 +8,8 @@ close all
 % 
 T = 1e7;
 n = 10;
-epsilon = 0.1; % eventuale for per paragonare i vari epsilon
+epsilon = 0.3; % eventuale for per paragonare i vari epsilon
+alpha = 0.1;
 % 
 % mu = ones(T+1,n);  % partono tutte con stessa media = 1
 % %mu(1,:) = normrnd(0,10,1,10);% medie iniziali
@@ -77,17 +78,16 @@ end
 % hold on
 % plot(mu(:,1))
 %%
-figure(3)
-hold on
-plot(Qt(1:end-1,1))
-%plot(mu(1:end-1,1))
-legend('Qt','mu')
-
-figure()
-plot(BA_avg1) 
+% figure(3)
+% hold on
+% plot(Qt(1:end-1,1))
+% %plot(mu(1:end-1,1))
+% legend('Qt','mu')
+% 
+% figure()
+% plot(BA_avg1) 
 %% Sample Average Method (alpha cost)
 
-alpha = 0.5;
 
 Nt = zeros(1,n);
 Qt = zeros(T+1,n);
@@ -115,7 +115,7 @@ for i=1:T
     BA_avg2(i) = (BA/i)*100;
     
     Nt(a) = Nt(a) + 1;
-    Qt(i,a) = Qt(i,a) + 1/alpha*(R(i,a)-Qt(i,a));
+    Qt(i,a) = Qt(i,a) + alpha*(R(i,a)-Qt(i,a));
     %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
     Qt(i+1,:) = Qt(i,:);
 end
@@ -125,15 +125,14 @@ end
 
 %% Upper Confidence Bound method (UCB)
 
-alpha = 0.5;
 
 Nt = zeros(1,n);
-Qt = 100*zeros(T+1,n);
+Qt = 10*ones(T+1,n);
 
 averageRew3 = zeros(1,T);
 sumRew = 0;
 
-c = 0.5;
+c = 0.1;
 BA = 0;
 BA_avg3 = zeros(1,T);
 
@@ -155,7 +154,7 @@ for i=1:T
     BA_avg3(i) = (BA/i)*100;
     
     Nt(a) = Nt(a) + 1;
-    Qt(i,a) = Qt(i,a) + 1/alpha*(R(i,a)-Qt(i,a));
+    Qt(i,a) = Qt(i,a) + alpha*(R(i,a)-Qt(i,a));
     %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
     Qt(i+1,:) = Qt(i,:);
 end
@@ -166,9 +165,8 @@ end
 
 %% Preference Based  Action Selection method     Rivedi questo metodo
 
-alpha = 0.5;
 
-H = zeros(1,n); % vettore preferenze
+H = ones(1,n)*10; % vettore preferenze
 % posso fare una matrice, se voglio vedere l'andamento di qst nel tempo
 pi_t = zeros(1,n);
 averageRew4 = zeros(1,T);
@@ -179,10 +177,12 @@ BA_avg4 = zeros(1,T);
 
 for i=1:T
     
-    sumH = sum(exp(H));
-    pi_t = exp(H)/sumH;
+    expH = exp(H);
+    pi_t = expH/sum(expH);
    
-    a = find(H == max(H),1);
+    %a = find(H == max(H),1);
+    a = randsample(length(pi_t),1,true,pi_t);
+    
     sumRew = sumRew + R(a);
     averageRew4(i) = sumRew/i;
     
@@ -193,13 +193,17 @@ for i=1:T
     BA_avg4(i) = (BA/i)*100;
     
     % aggiornamento H
-    for j=1:n
-        if(j == a)
-            H(j) = H(j) + alpha*(R(a) - averageRew4(i))*(1 - pi_t(j));
-        else
-            H(j) = H(j) - alpha*(R(a) - averageRew4(i))*(pi_t(j));
-        end
-    end
+    Ht = H(a);
+    H = H - alpha*(R(a) - averageRew4(i))*(pi_t);
+    H(a) = Ht + alpha*(R(a) - averageRew4(i))*(1 - pi_t(a));
+    
+%     for j=1:n
+%         if(j == a)
+%             H(j) = H(j) + alpha*(R(a) - averageRew4(i))*(1 - pi_t(j));
+%         else
+%             H(j) = H(j) - alpha*(R(a) - averageRew4(i))*(pi_t(j));
+%         end
+%     end
 end
 
 
