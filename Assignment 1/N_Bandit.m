@@ -6,9 +6,9 @@ close all
 % 
 % % Modello
 % 
-T = 1e7;
+T = 1e6;
 n = 10;
-epsilon = 0.3; % eventuale for per paragonare i vari epsilon
+epsilon = 0.5; % eventuale for per paragonare i vari epsilon
 alpha = 0.1;
 % 
 % mu = ones(T+1,n);  % partono tutte con stessa media = 1
@@ -30,7 +30,7 @@ alpha = 0.1;
 
 
 % vari metodi
-load bandit_R_mu.mat
+load bandit_R_mu_10e6.mat
 
 
 %% Sample Average Method (alpha 1/k)
@@ -132,14 +132,15 @@ Qt = 10*ones(T+1,n);
 averageRew3 = zeros(1,T);
 sumRew = 0;
 
-c = 0.1;
+c = 0.5;
 BA = 0;
 BA_avg3 = zeros(1,T);
 
 for i=1:T
     % rivedi UCB
-    ln = log(i)*ones(1,n);
-    Ucb = Qt(i,:) + c*sqrt(ln/Nt); % calcolo tutto il vettore delgi Ucb
+    %exploration = c*sqrt(log(i)./Nt);
+    ln = log(i).*ones(1,n);
+    Ucb = Qt(i,:)+ c*sqrt(ln/Nt); % calcolo tutto il vettore delgi Ucb
     a = find(Ucb == max(Ucb),1);
     % a = find(Qt == max(Qt),1);
     %a = find(Qt(i,:) == max(Qt(i,:)),1);
@@ -159,11 +160,18 @@ for i=1:T
     Qt(i+1,:) = Qt(i,:);
 end
 
+%% Plot UCB per vari c      i grafici sono esattamente gli stessi ???
+% figure(3)
+% hold on 
+% plot(averageRew3)
+% 
+% figure(4)
+% hold on 
+% plot(BA_avg3)
+% 
+% %legend('1','2','3','4','5')
 
-
-
-
-%% Preference Based  Action Selection method     Rivedi questo metodo
+%% Preference Based  Action Selection method    
 
 
 H = ones(1,n)*10; % vettore preferenze
@@ -176,11 +184,10 @@ BA = 0;
 BA_avg4 = zeros(1,T);
 
 for i=1:T
-    
+ %for i=1:30   
     expH = exp(H);
     pi_t = expH/sum(expH);
-   
-    %a = find(H == max(H),1);
+    
     a = randsample(length(pi_t),1,true,pi_t);
     
     sumRew = sumRew + R(a);

@@ -5,7 +5,7 @@ close all
 
 % Modello
 
-T = 1e7;
+T = 1e6;
 n = 10;
 %epsilon = 0.3; % eventuale for per paragonare i vari epsilon
 
@@ -25,4 +25,4 @@ for i=1:T
     
 end
 
-save bandit_R_mu.mat R mu
+save bandit_R_mu_10e6.mat R mu
