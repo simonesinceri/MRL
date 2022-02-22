@@ -2,6 +2,9 @@
 clc
 
 load data_tictactoe.mat
+load PI.mat  % policyPI
+load VI.mat  %policyVI
+
 
 state = ones(1,9);
 
@@ -20,10 +23,11 @@ while (numVuote ~= 1) % l'ultima la mette avv ma poi io non gioco più
         state(6),state(7),state(8),state(9)); % indice stato vero
     
     sp = find(list == s, 1);
-    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % mia azione ottima
     myAct = policyPI(sp) % Policy Iteration
     %myAct = policyVI(sp) % Value Iteration
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     state(myAct) = 2;
     % devo togliere la mia azione da quelle possibili per avversario
     remove = find(actPoss == myAct, 1);

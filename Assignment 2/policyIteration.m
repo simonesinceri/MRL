@@ -26,3 +26,5 @@ toc
 
 valuePI = value;
 policyPI = policy;
+
+save PI.mat policyPI valuePI

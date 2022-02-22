@@ -25,3 +25,5 @@ toc
 
 valueVI = value;
 policyVI = policy;
+
+save VI.mat policyVI valueVI
