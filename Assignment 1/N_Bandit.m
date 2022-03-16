@@ -1,5 +1,4 @@
 % Assignment 1 -> n-armed Bandit
-
 clc
 clear all
 close all
@@ -8,8 +7,10 @@ close all
 % 
 T = 1e6;
 n = 10;
+
 epsilon = 0.5; % eventuale for per paragonare i vari epsilon
 alpha = 0.1;
+
 % 
 % mu = ones(T+1,n);  % partono tutte con stessa media = 1
 % %mu(1,:) = normrnd(0,10,1,10);% medie iniziali
@@ -225,17 +226,20 @@ plot(averageRew1);
 plot(averageRew2);
 plot(averageRew3);
 plot(averageRew4);
+xlim([-T/100 T])
 legend('alpha 1/k','alpha cost','UCB','Prefer')
 
 figure('Name','Quality','NumberTitle','off')
 %title('Average Reward')
 ylabel('Best Action AVG')
-hold on
+
+hold on 
 
 plot(BA_avg1);
 plot(BA_avg2);
 plot(BA_avg3);
 plot(BA_avg4);
+xlim([-T/100 T])
 legend('alpha 1/k','alpha cost','UCB','Prefer')
 
 % 
