@@ -2,36 +2,18 @@
 clc
 clear all
 close all
-% 
-% % Modello
-% 
+
 T = 1e6;
 n = 10;
 
-epsilon = 0.5; % eventuale for per paragonare i vari epsilon
-alpha = 0.1;
-
-% 
-% mu = ones(T+1,n);  % partono tutte con stessa media = 1
-% %mu(1,:) = normrnd(0,10,1,10);% medie iniziali
-% 
-% sigma = 0.5*ones(1,n);% varianze
-% 
-% R = zeros(T,n);
-% % genero ricompense
-% for i=1:T
-%     
-%     R(i,:) = normrnd(mu(i), sigma,1,10);
-%    % mu(i+1,:) = randi([-1 1],1,10); % ????
-%     %mu(i+1,:) = rand(1,10)-rand(1,10);
-%     mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10);
-%     
-% end
-
+epsilon = 0.1; % eventuale for per paragonare i vari epsilon
+alpha = 0.3;
 
 
 % vari metodi
-load bandit_R_mu_10e6.mat
+
+%load bandit_R_mu_10e6.mat % termine stocastico 0.001
+load bandit_R_mu_10e6_01.mat % termine stocastico 0.1
 
 
 %% Sample Average Method (alpha 1/k)
@@ -78,7 +60,7 @@ end
 % figure(2)
 % hold on
 % plot(mu(:,1))
-%%
+%% Plot andamento medie/stime delle medie
 % figure(3)
 % hold on
 % plot(Qt(1:end-1,1))
@@ -88,7 +70,6 @@ end
 % figure()
 % plot(BA_avg1) 
 %% Sample Average Method (alpha cost)
-
 
 Nt = zeros(1,n);
 Qt = zeros(T+1,n);
@@ -126,22 +107,23 @@ end
 
 %% Upper Confidence Bound method (UCB)
 
-
-Nt = zeros(1,n);
+% mi prende sempre e solo la prima azione ???
+Nt = 0.01*ones(1,n); % invece di tutti zeros
 Qt = 10*ones(T+1,n);
 
 averageRew3 = zeros(1,T);
 sumRew = 0;
 
-c = 0.5;
+c = 1.5;
 BA = 0;
 BA_avg3 = zeros(1,T);
 
 for i=1:T
-    % rivedi UCB
-    %exploration = c*sqrt(log(i)./Nt);
+   
     ln = log(i).*ones(1,n);
-    Ucb = Qt(i,:)+ c*sqrt(ln/Nt); % calcolo tutto il vettore delgi Ucb
+    exploration = c*sqrt(ln./Nt);
+    Ucb = Qt(i,:) + exploration;  % calcolo tutto il vettore delgi Ucb
+    
     a = find(Ucb == max(Ucb),1);
     % a = find(Qt == max(Qt),1);
     %a = find(Qt(i,:) == max(Qt(i,:)),1);
@@ -154,14 +136,14 @@ for i=1:T
         BA = BA + 1;
     end
     BA_avg3(i) = (BA/i)*100;
-    
+    % mi riporta i Qt a 10 ?? dato da Qt(i,a) dovrei avere Qt(i-1)+ ..
     Nt(a) = Nt(a) + 1;
     Qt(i,a) = Qt(i,a) + alpha*(R(i,a)-Qt(i,a));
     %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
     Qt(i+1,:) = Qt(i,:);
 end
 
-%% Plot UCB per vari c      i grafici sono esattamente gli stessi ???
+% % Plot UCB per vari c     
 % figure(3)
 % hold on 
 % plot(averageRew3)
@@ -170,10 +152,9 @@ end
 % hold on 
 % plot(BA_avg3)
 % 
-% %legend('1','2','3','4','5')
+% legend('1','2','3','4','5')
 
 %% Preference Based  Action Selection method    
-
 
 H = ones(1,n)*10; % vettore preferenze
 % posso fare una matrice, se voglio vedere l'andamento di qst nel tempo
@@ -205,13 +186,6 @@ for i=1:T
     H = H - alpha*(R(a) - averageRew4(i))*(pi_t);
     H(a) = Ht + alpha*(R(a) - averageRew4(i))*(1 - pi_t(a));
     
-%     for j=1:n
-%         if(j == a)
-%             H(j) = H(j) + alpha*(R(a) - averageRew4(i))*(1 - pi_t(j));
-%         else
-%             H(j) = H(j) - alpha*(R(a) - averageRew4(i))*(pi_t(j));
-%         end
-%     end
 end
 
 

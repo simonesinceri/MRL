@@ -19,10 +19,10 @@ R = zeros(T,n);
 for i=1:T
     
     R(i,:) = normrnd(mu(i), sigma,1,10);
-   % mu(i+1,:) = randi([-1 1],1,10); % ????
-    %mu(i+1,:) = rand(1,10)-rand(1,10);
-    mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10); % prova 0.1
-    
+
+    %mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10); % prova 0.1
+    mu(i+1,:) = mu(i,:) + 0.1*normrnd(0,10,1,10);
+
 end
 
-save bandit_R_mu_10e6.mat R mu
+save bandit_R_mu_10e6_01.mat R mu
