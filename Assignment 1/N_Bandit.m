@@ -1,4 +1,7 @@
 % Assignment 1 -> n-armed Bandit
+
+% Parlare al prof dell'eventuale grafico dell'andamento stime media vs
+% media vera -> altrimenti tolgo Q come matrice e mantengo solo vettore
 clc
 clear all
 close all
