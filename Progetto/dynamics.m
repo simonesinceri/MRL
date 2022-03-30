@@ -1,4 +1,4 @@
-function [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, delta,i)
+function [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, passo,i)
 
 % isTerminal non penso mi serva
 yt = s(1); % stato attuale
@@ -7,7 +7,7 @@ at = a - 2; % azioni codificate come 1 2 3 -> -1 0 1
 
 isTerminal = 0;
 
-x_next = xt + at*delta;
+x_next = xt + at*passo;
 
 dati = Road_Scenario(xt,yt,x_next,y*5,y,i);
 sp = dati(end).ActorPoses.Position(1:2);

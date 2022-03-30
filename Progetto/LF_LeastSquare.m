@@ -1,6 +1,7 @@
 % Simulation Environment
 % Linear Features LS
 % converge prima il SARSA
+
 clear all
 close all 
 clc
@@ -10,13 +11,13 @@ limSx = 4;
 limDx = -4;
 
 M = 3; % numero celle
-N = 8;%4; % numero griglie  num righe
+N = 4; % numero griglie  num righe
 
 A = 3; % numero azioni [-1,0,1]
-delta = 1; % passo della mia azione
+passo = 1; % passo della mia azione
 % Potrei mettere un delta che diminuisce
 
-episodes = 1000; %1e3;  % prova con questo num di episodi e tolgi il plot dello scenario
+episodes = 1e3;  
 epsilon = 1e-1;
 alpha = 1e-3;
 gamma = 1;
@@ -29,14 +30,15 @@ d = A*N*nCells; % dimensione vettore pesi da aggiornare
 % metodo minimi quadratici -> formula iterativa per calcolo A^(-1)
 iA = 1e6*eye(d);
 B = zeros(d,1);
-w = randn(d, 1);
+w = randn(d,1);
 
 %tic
 for i=1:episodes
     %x_start = (normrnd(0,1)*4);
     % valore random tra 4 -4 
     %%% qst potrebbe essere il problema %%%%%%%%%%%%%%%%%%%%%%%%%%
-    s = [0; (rand*4-rand*4)]; % [y,x] sono inverite sul simulatore   
+    %s = [0; (rand*4-rand*4)]; % [y,x] sono inverite sul simulatore   
+    s = [0;max(min(normrnd(0,0.6)*4,4),-4)];
     a = epsGreedy(s, w, eps, gridx, M, N, A);
 
     if(mod(i,10) == 0)
@@ -50,7 +52,7 @@ for i=1:episodes
     for y=1:1:6
     
         x = features(s, a, gridx, M, N, A);
-        [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, delta,i);
+        [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, passo,i);
         rewEpisodio = rewEpisodio + r;
         
         ap = epsGreedy(sp, w, epsilon, gridx, M, N, A);

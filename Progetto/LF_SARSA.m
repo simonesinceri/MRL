@@ -13,7 +13,7 @@ M = 3; % numero celle
 N = 8;%4; % numero griglie  num righe
 
 A = 3; % numero azioni [-1,0,1]
-delta = 1; % passo della mia azione
+passo = 1; % passo della mia azione
 % Potrei mettere un delta che diminuisce
 
 episodes = 1e3; 
@@ -47,7 +47,7 @@ for i=1:episodes
     for y=1:1:6
     
         x = features(s, a, gridx, M, N, A);
-        [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, delta,i);
+        [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, passo,i);
         rewEpisodio = rewEpisodio + r;
         
         if isTerminal
@@ -71,3 +71,22 @@ for i=1:episodes
 
 end
 %toc
+
+%%
+% [xx, vv] = meshgrid(linspace(lbx+eps, ubx-eps), ...
+%     linspace(lbv+eps, ubv-eps));
+% Value = zeros(size(xx));
+% for i1 = 1:size(xx,1)
+%     for i2 = 1:size(xx,2)
+%         s = [xx(i1,i2), vv(i1, i2)];  % non funzionava qui io uso solo
+%         % s(2) ma features prende stato completo
+%         q = zeros(A, 1);
+%         for a = 1:A
+%             q(a) = w'*getRBF(s, a, sigma, gridx, gridv, M, N, A);
+%         end
+%         Value(i1,i2) = max(q);
+%     end
+% end
+% 
+% figure()
+% surf(xx, vv, Value)

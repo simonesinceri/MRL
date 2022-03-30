@@ -1,4 +1,4 @@
-function verificaAddestramento(w,gridx,M,N,A,limSx,limDx,delta)
+function verificaAddestramento(w,gridx,M,N,A,limSx,limDx,passo)
 
 % Carico eventuali dati addestrati,devo prima fare il load
 % load addestramentoSARSA_1000episodes_delta1.mat
@@ -6,7 +6,7 @@ function verificaAddestramento(w,gridx,M,N,A,limSx,limDx,delta)
 %s = [0; (rand*4-rand*4)] % [y,x] sono inverite sul simulatore
 s = [0;max(min(normrnd(0,1)*4,4),-4)]
 % Caso limite
-%s = [0,4]; % caso 4 mi rimane a x = 1 potrebbe apprendere meglio, o problema di griglie
+%s = [0,4] % caso 4 mi rimane a x = 1 potrebbe apprendere meglio, o problema di griglie
 % Soffre la parte sinistra, forse non esplora bene quella parte
 % Capita che quando fuori strada va sempre dritto?? -> serve più exper???
 % rivedi caso riga precedente con SARSA
@@ -21,7 +21,7 @@ state(1,1:2) = s;
 for y=1:1:6
     %x = features(s, a, gridx, M, N, A);
     %dati = Road_Scenario(x_iniz,y_iniz,x_next,y*5); % prendo dati(end)
-    [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, delta,i);
+    [sp, r, isTerminal] = dynamics(s, a, limSx, limDx, y, passo,i);
     % Eventuale visualizzione di r,a per vedere come si comporta
     fprintf("r = %f a = %f \n", r, (a-2))
     
