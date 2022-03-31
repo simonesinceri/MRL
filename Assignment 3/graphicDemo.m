@@ -12,7 +12,6 @@ GW.ObstacleStates = ["[20,5]";"[20,16]";"[5,5]";"[6,5]";"[7,5]";"[8,5]";"[9,5]";
 GW.TerminalStates = ["[6,20]";"[7,20]";"[8,20]";"[9,20]";"[10,20]"];
 env = rlMDPEnv(GW);
 plot(env)
-
 s0 = sub2ind([20 20 11 11],20,randi([6 15]),6,6); 
 [s, a, r] = playRaceEpsilon(s0, policy, 0);
 

@@ -34,6 +34,7 @@ for e = 1:numEpisodes
         policy(s(t),:) = [A1 A2];
     end
 end
+% Monte Carlo exploring start -> vedi altri metodi
 
 %save mc_race_10e6_GAMMA1.mat policy
   
