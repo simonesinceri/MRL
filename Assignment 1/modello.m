@@ -11,18 +11,19 @@ n = 10;
 
 mu = ones(T+1,n);  % partono tutte con stessa media = 1
 %mu(1,:) = normrnd(0,10,1,10);% medie iniziali
+%mu = normrnd(0,1,1,10);
 
-sigma = 0.5*ones(1,n);% varianze
+sigma = 0.5*ones(1,n);% varianze 
 
 R = zeros(T,n);
 % genero ricompense
 for i=1:T
     
-    R(i,:) = normrnd(mu(i), sigma,1,10);
+        R(i,:) = normrnd(mu(i), sigma,1,10);
 
     %mu(i+1,:) = mu(i,:) + 0.001*normrnd(0,10,1,10); % prova 0.1
     mu(i+1,:) = mu(i,:) + 0.1*normrnd(0,10,1,10);
 
 end
 
-save bandit_R_mu_10e6_01.mat R mu
+save bandit_R_mu_10e6_DETERMINISTIC.mat R mu

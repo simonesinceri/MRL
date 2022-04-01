@@ -6,17 +6,20 @@ clc
 clear all
 close all
 
-T = 1e6;
+
+T = 800000;
+%T = 1e6;
 n = 10;
 
 epsilon = 0.1; % eventuale for per paragonare i vari epsilon
-alpha = 0.3;
+alpha = 0.1;
 
 
 % vari metodi
 
 %load bandit_R_mu_10e6.mat % termine stocastico 0.001
-load bandit_R_mu_10e6_01.mat % termine stocastico 0.1
+%load bandit_R_mu_10e6_01.mat % termine stocastico 0.1
+load bandit_R_mu_10e6_DETERMINISTIC.mat 
 
 
 %% Sample Average Method (alpha 1/k)
@@ -117,7 +120,7 @@ Qt = 10*ones(T+1,n);
 averageRew3 = zeros(1,T);
 sumRew = 0;
 
-c = 1.5;
+c = 1;
 BA = 0;
 BA_avg3 = zeros(1,T);
 
@@ -198,7 +201,7 @@ end
 figure('Name','Average Reward','NumberTitle','off')
 %title('Average Reward')
 hold on
-
+ylabel('Average Reward')
 plot(averageRew1);
 plot(averageRew2);
 plot(averageRew3);
@@ -208,7 +211,7 @@ legend('alpha 1/k','alpha cost','UCB','Prefer')
 
 figure('Name','Quality','NumberTitle','off')
 %title('Average Reward')
-ylabel('Best Action AVG')
+
 
 hold on 
 
@@ -218,7 +221,7 @@ plot(BA_avg3);
 plot(BA_avg4);
 xlim([-T/100 T])
 legend('alpha 1/k','alpha cost','UCB','Prefer')
-
+ylabel('Quality')
 % 
 % subplot(1,4,1)
 % plot(averageRew1);
