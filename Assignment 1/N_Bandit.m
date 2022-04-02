@@ -6,21 +6,15 @@ clc
 clear all
 close all
 
-
-T = 800000;
-%T = 1e6;
+T = 1e6;
 n = 10;
 
 epsilon = 0.1; % eventuale for per paragonare i vari epsilon
-alpha = 0.1;
+alpha = 0.05;
 
-
-% vari metodi
-
-%load bandit_R_mu_10e6.mat % termine stocastico 0.001
-%load bandit_R_mu_10e6_01.mat % termine stocastico 0.1
-load bandit_R_mu_10e6_DETERMINISTIC.mat 
-
+load bandit_R_mu_10e6.mat
+%load bandit_R_mu_10e6_DETERMINISTIC.mat 
+%load bandit_R_mu_10e6_DETERMINISTIC_UGUALI1.mat
 
 %% Sample Average Method (alpha 1/k)
 
@@ -67,11 +61,11 @@ end
 % hold on
 % plot(mu(:,1))
 %% Plot andamento medie/stime delle medie
-% figure(3)
-% hold on
-% plot(Qt(1:end-1,1))
-% %plot(mu(1:end-1,1))
-% legend('Qt','mu')
+figure('Name','Stima VS Media vera','NumberTitle','off')
+hold on
+plot(mu(1:end-1,1))
+plot(Qt(1:end-1,1))
+%legend('Qt','mu')
 % 
 % figure()
 % plot(BA_avg1) 
@@ -111,6 +105,9 @@ end
 
 
 
+%%
+hold on
+plot(Qt(1:end-1,1))
 %% Upper Confidence Bound method (UCB)
 
 % mi prende sempre e solo la prima azione ???
@@ -159,7 +156,9 @@ end
 % plot(BA_avg3)
 % 
 % legend('1','2','3','4','5')
-
+%%
+hold on
+plot(Qt(1:end-1,1))
 %% Preference Based  Action Selection method    
 
 H = ones(1,n)*10; % vettore preferenze
@@ -193,9 +192,11 @@ for i=1:T
     H(a) = Ht + alpha*(R(a) - averageRew4(i))*(1 - pi_t(a));
     
 end
+%%
+hold on
+plot(Qt(1:end-1,1))
 
-
-
+legend('mu','alpha 1/k','alpha cost','UCB','Prefer')
 %% Grafici
 
 figure('Name','Average Reward','NumberTitle','off')
