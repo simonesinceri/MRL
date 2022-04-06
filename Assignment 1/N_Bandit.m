@@ -6,11 +6,11 @@ clc
 clear all
 close all
 
-T = 1e6;
+T = (1e6);
 n = 10;
 
 epsilon = 0.1; % eventuale for per paragonare i vari epsilon
-alpha = 0.05;
+alpha = 0.1;
 
 load bandit_R_mu_10e6.mat
 %load bandit_R_mu_10e6_DETERMINISTIC.mat 
@@ -32,8 +32,8 @@ for i=1:T
     if(rand < epsilon)
         a = randi(10);
     else
-       % a = find(Qt == max(Qt),1);
-       a = find(Qt(i,:) == max(Qt(i,:)),1);
+        %5a = find(Qt == max(Qt),1);
+        a = find(Qt(i,:) == max(Qt(i,:)),1);
     end
     sumRew = sumRew + R(a);
     averageRew1(i) = sumRew/i;
@@ -49,7 +49,7 @@ for i=1:T
     % aggiornamento non mi torna, dovrebbe essere giusto
     Nt(a) = Nt(a) + 1;
     Qt(i,a) = Qt(i,a) + 1/Nt(a)*(R(i,a)-Qt(i,a));
-    %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
+    %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a));
     Qt(i+1,:) = Qt(i,:);
 end
 
@@ -113,6 +113,7 @@ plot(Qt(1:end-1,1))
 % mi prende sempre e solo la prima azione ???
 Nt = 0.01*ones(1,n); % invece di tutti zeros
 Qt = 10*ones(T+1,n);
+%Qt = 10*ones(1,n);
 
 averageRew3 = zeros(1,T);
 sumRew = 0;
@@ -126,7 +127,7 @@ for i=1:T
     ln = log(i).*ones(1,n);
     exploration = c*sqrt(ln./Nt);
     Ucb = Qt(i,:) + exploration;  % calcolo tutto il vettore delgi Ucb
-    
+   % Ucb = Qt + exploration;
     a = find(Ucb == max(Ucb),1);
     % a = find(Qt == max(Qt),1);
     %a = find(Qt(i,:) == max(Qt(i,:)),1);
@@ -142,7 +143,7 @@ for i=1:T
     % mi riporta i Qt a 10 ?? dato da Qt(i,a) dovrei avere Qt(i-1)+ ..
     Nt(a) = Nt(a) + 1;
     Qt(i,a) = Qt(i,a) + alpha*(R(i,a)-Qt(i,a));
-    %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a))
+    %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a));
     Qt(i+1,:) = Qt(i,:);
 end
 

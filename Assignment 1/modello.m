@@ -5,7 +5,7 @@ close all
 
 % Modello
 
-T = 1e6;
+T = 50*(1e6);
 n = 10;
 %epsilon = 0.3; % eventuale for per paragonare i vari epsilon
 
