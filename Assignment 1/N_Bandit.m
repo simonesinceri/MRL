@@ -19,8 +19,8 @@ load bandit_R_mu_10e6.mat
 %% Sample Average Method (alpha 1/k)
 
 Nt = zeros(1,n);
-Qt = zeros(T+1,n);
-%Qt = zeros(1,n);
+%Qt = zeros(T+1,n);
+Qt = zeros(1,n);
 
 averageRew1 = zeros(1,T);
 sumRew = 0;
@@ -32,10 +32,10 @@ for i=1:T
     if(rand < epsilon)
         a = randi(10);
     else
-        %5a = find(Qt == max(Qt),1);
-        a = find(Qt(i,:) == max(Qt(i,:)),1);
+        a = find(Qt == max(Qt),1);
+        %a = find(Qt(i,:) == max(Qt(i,:)),1);
     end
-    sumRew = sumRew + R(a);
+    sumRew = sumRew + R(i,a);
     averageRew1(i) = sumRew/i;
     
     ottim = find(mu(i,:) == max(mu(i,:)),1);
@@ -48,9 +48,9 @@ for i=1:T
     
     % aggiornamento non mi torna, dovrebbe essere giusto
     Nt(a) = Nt(a) + 1;
-    Qt(i,a) = Qt(i,a) + 1/Nt(a)*(R(i,a)-Qt(i,a));
-    %Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a));
-    Qt(i+1,:) = Qt(i,:);
+    %Qt(i,a) = Qt(i,a) + 1/Nt(a)*(R(i,a)-Qt(i,a));
+    Qt(a) = Qt(a) + 1/Nt(a)*(R(i,a)-Qt(a));
+    %Qt(i+1,:) = Qt(i,:);
 end
 
 % figure(1)
@@ -87,7 +87,7 @@ for i=1:T
        % a = find(Qt == max(Qt),1);
        a = find(Qt(i,:) == max(Qt(i,:)),1);
     end
-    sumRew = sumRew + R(a);
+    sumRew = sumRew + R(i,a);
     averageRew2(i) = sumRew/i;
     
     ottim = find(mu(i,:) == max(mu(i,:)),1);
@@ -132,7 +132,7 @@ for i=1:T
     % a = find(Qt == max(Qt),1);
     %a = find(Qt(i,:) == max(Qt(i,:)),1);
     
-    sumRew = sumRew + R(a);
+    sumRew = sumRew + R(i,a);
     averageRew3(i) = sumRew/i;
     
     ottim = find(mu(i,:) == max(mu(i,:)),1);
@@ -178,7 +178,7 @@ for i=1:T
     
     a = randsample(length(pi_t),1,true,pi_t);
     
-    sumRew = sumRew + R(a);
+    sumRew = sumRew + R(i,a);
     averageRew4(i) = sumRew/i;
     
     ottim = find(mu(i,:) == max(mu(i,:)),1);
@@ -189,8 +189,8 @@ for i=1:T
     
     % aggiornamento H
     Ht = H(a);
-    H = H - alpha*(R(a) - averageRew4(i))*(pi_t);
-    H(a) = Ht + alpha*(R(a) - averageRew4(i))*(1 - pi_t(a));
+    H = H - alpha*(R(i,a) - averageRew4(i))*(pi_t);
+    H(a) = Ht + alpha*(R(i,a) - averageRew4(i))*(1 - pi_t(a));
     
 end
 %%
