@@ -1,4 +1,4 @@
-% TIC-TAC.TOE
+% TIC-TAC-TOE
 % Costruzione matrici P e R
 
 clc

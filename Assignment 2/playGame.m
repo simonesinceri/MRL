@@ -25,8 +25,8 @@ while (numVuote ~= 1) % l'ultima la mette avv ma poi io non gioco più
     sp = find(list == s, 1);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % mia azione ottima
-    myAct = policyPI(sp) % Policy Iteration
-    %myAct = policyVI(sp) % Value Iteration
+    %myAct = policyPI(sp) % Policy Iteration
+    myAct = policyVI(sp) % Value Iteration
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     state(myAct) = 2;
     % devo togliere la mia azione da quelle possibili per avversario
