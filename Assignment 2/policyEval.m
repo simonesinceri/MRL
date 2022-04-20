@@ -20,7 +20,7 @@ while true
     vprec = v;
     %   R_t+1+gamma* * valPrecedente
     v = Rpi + gamma*Ppi*vprec; % prodotti tra matrici aggiorno contemporaneamente tutti gli stati
-    if norm(vprec-v, Inf) < 1e-6
+    if norm(vprec-v, Inf) < 1e-8 %era -6
         break
     end
 end

@@ -1,11 +1,11 @@
 % Simulazione partita Tic-Tac-Toe
 %% Caricamento dati
 clc
-%clear 
+clear 
 
 load data_tictactoe.mat
 %load PI.mat  % policyPI
-%load VI.mat  %policyVIù
+%load VI.mat  %policyVI
 
 %% Simulazione
 clc
@@ -28,10 +28,16 @@ while (numVuote >= 2) % l'ultima la mette avv ma poi io non gioco più
     sp = find(list == s, 1);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % mia azione ottima
-    %myAct = policyPI(sp) % Policy Iteration
-    myAct = policyVI(sp) % Value Iteration
+    myAct = policyPI(sp) % Policy Iteration
+    %myAct = policyVI(sp) % Value Iteration
+    if(state(myAct) == 1)
+        state(myAct) = 2;
+    else
+        fprintf("ERROR \n")
+        break
+    end
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    state(myAct) = 2;
+    
     % devo togliere la mia azione da quelle possibili per avversario
     remove = find(actPoss == myAct, 1);
     actPoss(remove) = [];
@@ -53,7 +59,7 @@ while (numVuote >= 2) % l'ultima la mette avv ma poi io non gioco più
         return
     end
     if(verifyVictory(state) == -1) 
-        disp('Win O ->Fine Episodio')
+        disp('Win O -> Fine Episodio')
         return
     end
 end

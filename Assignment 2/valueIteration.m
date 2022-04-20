@@ -15,7 +15,7 @@ prevValue = randn(S,1);
 tic
 while true
     [value, policy] = policyOptim(P, R, gamma, value);  
-    if norm(value - prevValue) < 1e-4
+    if norm(value - prevValue) < 1e-6
         break;
     else
         prevValue = value;
