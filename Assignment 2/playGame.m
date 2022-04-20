@@ -1,11 +1,14 @@
 % Simulazione partita Tic-Tac-Toe
+%% Caricamento dati
 clc
+%clear 
 
 load data_tictactoe.mat
-load PI.mat  % policyPI
-load VI.mat  %policyVI
+%load PI.mat  % policyPI
+%load VI.mat  %policyVIù
 
-
+%% Simulazione
+clc
 state = ones(1,9);
 
 actPoss = [1 2 3 4 5 6 7 8 9];
@@ -17,7 +20,7 @@ numVuote = 8;
 visualizeGrid(state)
 fprintf('\n')
 
-while (numVuote ~= 1) % l'ultima la mette avv ma poi io non gioco più
+while (numVuote >= 2) % l'ultima la mette avv ma poi io non gioco più
     
     s = sub2ind(3*ones(1,9),state(1),state(2),state(3),state(4),state(5),...
         state(6),state(7),state(8),state(9)); % indice stato vero

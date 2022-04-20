@@ -3,7 +3,7 @@ close all
 clc
 
 load data_tictactoe.mat
-gamma = 0.9;
+gamma = 0.99;
 
 S = size(P,1);
 A = size(R,2);
@@ -27,4 +27,4 @@ toc
 valuePI = value;
 policyPI = policy;
 
-save PI.mat policyPI valuePI
+%save PI.mat policyPI valuePI

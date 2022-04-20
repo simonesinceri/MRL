@@ -67,7 +67,7 @@ P = zeros(S,S,A);
 
 for s = 1:S  % s indice per matrice 
     
-    st = list(s); % numero vero che rappr stato con sub2ind
+    st = list(s); % indice vero che rappr stato con sub2ind
     
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), st);
     stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
@@ -92,7 +92,7 @@ for s = 1:S  % s indice per matrice
             for k=1:A
                 statoApp2 = statoApp; % per aggiungere azione avversario
                 
-                if(statoApp(k) == 1) 
+                if(statoApp(k) == 1) %
                     statoApp2(k) = 3;
                     sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
                         statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
