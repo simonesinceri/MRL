@@ -7,7 +7,7 @@ close all
 
 S = 3^9;
 A = 9; % posizione dove metto il mio simbolo
-%%%%%%%%%%%% supponiamo cominci sempre l'avversario %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% supponiamo cominci io a giocare %%%%%%%%%%%%%%%%%%
 list = [];
 
 vX = [2 2 2];
@@ -22,6 +22,14 @@ for s = 1:S
     numCroce = 0;
     numCerchio = 0;
     numSeqEnd = 0;
+
+    numVuote = 0;
+    
+    for i=1:9 % conto caselle vuote e tengo presente gli indici
+        if(state(i) == 1)
+            numVuote = numVuote+1;
+        end
+    end
     
     for i=1:9
         if(state(i) == 2)
@@ -54,7 +62,8 @@ for s = 1:S
     end
     
     % CASO prima azione avversario
-    if(numCroce == numCerchio-1 && numSeqEnd<3) % stato ammissibile
+    %if(numCroce == numCerchio-1 && numSeqEnd<3) % stato ammissibile
+    if((numCroce == numCerchio && numSeqEnd<3) || (numCroce-1 == numCerchio && numSeqEnd<3 && numVuote == 0))
         list = [list, s]; % lista indici stati ammissibili
     end
     
@@ -65,42 +74,66 @@ end
 S = size(list,2);
 P = zeros(S,S,A);
 
-for s = 1:S  % s indice per matrice 
-    
+for s = 1:S  % s indice per matrice
+
     st = list(s); % indice vero che rappr stato con sub2ind
-    
+
     [num1, num2, num3, num4, num5, num6, num7 ,num8, num9] = ind2sub(3*ones(1,9), st);
     stato = [num1, num2, num3, num4, num5, num6, num7 ,num8, num9];
-    
+
     numVuote = 0;
-    
+
     for i=1:9 % conto caselle vuote e tengo presente gli indici
         if(stato(i) == 1)
             numVuote = numVuote+1;
         end
     end
-    
-    for a=1:A
-        statoApp = stato;
-        
-        if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
-            % se azione non possibile rimango nello stesso stato e anche se lo stato è terminale
-            P(s,s,a) = 1;
-        else
-            statoApp(a) = 2; % metto la mia azione
-       
-            for k=1:A
-                statoApp2 = statoApp; % per aggiungere azione avversario
-                
-                if(statoApp(k) == 1) %
-                    statoApp2(k) = 3;
-                    sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
-                        statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
-                    sp = find(list == sp, 1);
-                    P(s,sp,a) =  1/(numVuote-1);
-                end
+    %caso ultima casella vuota
+    if(numVuote == 1)
+        for a=1:A
+            statoApp = stato;
+
+            if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
+                % se azione non possibile rimango nello stesso stato e anche se lo stato è terminale
+                P(s,s,a) = 1; % e se fosse qui l'errore
+
+            else
+                statoApp(a) = 2;
+                sp = sub2ind(3*ones(1,9),statoApp(1),statoApp(2),statoApp(3),statoApp(4),...
+                    statoApp(5),statoApp(6),statoApp(7),statoApp(8),statoApp(9));
+                sp = find(list == sp, 1);
+                P(s,sp,a) = 1;
+
             end
-            
+        end
+
+    else
+
+        for a=1:A
+            statoApp = stato;
+
+            if(stato(a) ~= 1 || verifyVictory(stato) ~= 0) % verifico se azione possibile diversa da 1 e da 3
+                % se azione non possibile rimango nello stesso stato e anche se lo stato è terminale
+                P(s,s,a) = 1; % e se fosse qui l'errore
+
+            else
+                statoApp(a) = 2; % metto la mia azione
+
+                for k=1:A
+                    statoApp2 = statoApp; % per aggiungere azione avversario
+
+                    if(statoApp(k) == 1) %
+                        statoApp2(k) = 3;
+                        sp = sub2ind(3*ones(1,9),statoApp2(1),statoApp2(2),statoApp2(3),statoApp2(4),...
+                            statoApp2(5),statoApp2(6),statoApp2(7),statoApp2(8),statoApp2(9));
+                        sp = find(list == sp, 1);
+                        P(s,sp,a) =  1/(numVuote-1);
+                    end
+                end
+
+            end
+
+
         end
     end
 end
@@ -125,4 +158,4 @@ for p=1:S
     end
 end
 
-%save data_tictactoe.mat P R list   
+save data_tictactoe_v2.mat P R list   
