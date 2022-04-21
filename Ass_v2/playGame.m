@@ -1,4 +1,3 @@
-% Simulazione partita Tic-Tac-Toe
 %% Caricamento dati
 clc
 clear 
@@ -27,6 +26,7 @@ while (numVuote >= 1)
     % mia azione ottima
     %myAct = policyPI(sp) % Policy Iteration
     myAct = policyVI(sp) % Value Iteration
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if(state(myAct) == 1)
         state(myAct) = 2;
     else
