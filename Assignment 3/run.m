@@ -6,7 +6,9 @@
 
 %devo mappare posizioni ammisibili, partenza e finali
 
-% simula il modello    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SIMULA IL MODELLO  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [sp, r] = run(s,a)
 %sp -> stato successivo, r->ricompensa
 

@@ -1,6 +1,8 @@
 %% Demo Visualizzazione Grafica
 
-load mc_race_10e6_GAMMA1.mat
+%load mc_race_10e6_GAMMA1.mat % qst con che eps fai con 01 03 05
+%load mc_race_10e6_GAMMA1_eps02.mat
+
 
 GW = createGridWorld(20,20,'Kings');
 GW.ObstacleStates = ["[20,5]";"[20,16]";"[5,5]";"[6,5]";"[7,5]";"[8,5]";"[9,5]";...

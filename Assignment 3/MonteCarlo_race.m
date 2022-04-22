@@ -4,7 +4,7 @@ clc
 
 numEpisodes = 1e6;
 gamma = 1;   % con 0.9 non va
-epsilon = 0.3;
+epsilon = 0.2;
 
 S = 20*20*11*11;
 A = 3*3; % azione su x e y
@@ -34,7 +34,7 @@ for e = 1:numEpisodes
         policy(s(t),:) = [A1 A2];
     end
 end
-% Monte Carlo exploring start -> vedi altri metodi
+
 
 %save mc_race_10e6_GAMMA1.mat policy
   
