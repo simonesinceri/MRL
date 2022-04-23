@@ -25,7 +25,7 @@ for s = 1:S
 
     numVuote = 0;
     
-    for i=1:9 % conto caselle vuote e tengo presente gli indici
+    for i=1:9 % conto caselle vuote
         if(state(i) == 1)
             numVuote = numVuote+1;
         end
@@ -61,9 +61,8 @@ for s = 1:S
         numSeqEnd = numSeqEnd +1;
     end
     
-    % CASO prima azione avversario
-    %if(numCroce == numCerchio-1 && numSeqEnd<3) % stato ammissibile
-    if((numCroce == numCerchio && numSeqEnd<3) || (numCroce-1 == numCerchio && numSeqEnd<3 && numVuote == 0))
+    % CASO prima azione io 
+    if((numCroce == numCerchio && numSeqEnd<3) || (numCroce-1 == numCerchio && numSeqEnd<3 && numVuote == 0))% stato ammissibile
         list = [list, s]; % lista indici stati ammissibili
     end
     
@@ -83,11 +82,12 @@ for s = 1:S  % s indice per matrice
 
     numVuote = 0;
 
-    for i=1:9 % conto caselle vuote e tengo presente gli indici
+    for i=1:9 % conto caselle vuote 
         if(stato(i) == 1)
             numVuote = numVuote+1;
         end
     end
+    
     %caso ultima casella vuota
     if(numVuote == 1)
         for a=1:A

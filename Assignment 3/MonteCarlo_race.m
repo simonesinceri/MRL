@@ -3,8 +3,8 @@ close all
 clc
 
 numEpisodes = 1e6;
-gamma = 1;   % con 0.9 non va
-epsilon = 0.2;
+gamma = 1;  % con 0.9 non va
+epsilon = 0.3;
 
 S = 20*20*11*11;
 A = 3*3; % azione su x e y
@@ -21,7 +21,7 @@ for e = 1:numEpisodes
     %stato iniziale -> li devo mapapre con sub2ind
     % parti da linea partenza con velocità nulla
     s0 = sub2ind([20 20 11 11],20,randi([6 15]),6,6); 
-    a0 = randi(3,1,2);
+    %a0 = randi(3,1,2);
     [s, a, r] = playRaceEpsilon(s0, policy, epsilon);
     G = 0;
     e
@@ -35,6 +35,8 @@ for e = 1:numEpisodes
     end
 end
 
+% utilizzo metodo con policy eps-greedy, stocasticità implementa
+% nell'ambiente
 
 %save mc_race_10e6_GAMMA1.mat policy
   
