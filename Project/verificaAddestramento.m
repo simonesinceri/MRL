@@ -1,7 +1,8 @@
-function verificaAddestramento(w,gridx,M,N,A,limSx,limDx,passo)
-
-% Carico eventuali dati addestrati,devo prima fare il load
+% Funzione utilizzate per verificare l'effecienza dell'addestramento
+% Caricare eventuali dati addestrati, devo prima fare il load
 % load addestramentoSARSA_1000episodes_delta1.mat
+
+function verificaAddestramento(w,gridx,M,N,A,limSx,limDx,passo)
 
 %s = [0; (rand*4-rand*4)] % [y,x] sono inverite sul simulatore
 s = [0;max(min(normrnd(0,1)*4,4),-4)]

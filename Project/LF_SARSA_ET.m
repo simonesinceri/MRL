@@ -21,7 +21,7 @@ episodes = 1e3;
 epsilon = 1e-1;
 alpha = 1e-3;
 % lambda = 0 -> SARSA semplice, lambda = 1 -> MC
-lambda = 1; 
+lambda = 0.8; % 1
 gamma = 1;
 
 nCells = (M + 1); % dimensione features per una cella
