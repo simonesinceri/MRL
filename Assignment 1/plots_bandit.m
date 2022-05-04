@@ -284,3 +284,47 @@ title("Quality")
 xlabel("time");
 ylabel("percentage best action");
 legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
+
+%% Confronto riducendo randoma walks
+load 1sample_average.mat R_avg BA_array
+figure(13);
+hold on;
+plot(1:length(R_avg),R_avg);
+figure(14);
+hold on;
+plot(1:length(R_avg),BA_array);
+
+load 1stp_size.mat R_avg BA_array
+figure(13);
+hold on;
+plot(1:length(R_avg),R_avg);
+figure(14);
+hold on;
+plot(1:length(R_avg),BA_array);
+
+load 1ucb.mat R_avg BA_array
+figure(13);
+hold on;
+plot(1:length(R_avg),R_avg);
+figure(14);
+hold on;
+plot(1:length(R_avg),BA_array);
+
+load 1pref.mat R_avg BA_array
+figure(13);
+hold on;
+plot(1:length(R_avg),R_avg);
+figure(14);
+hold on;
+plot(1:length(R_avg),BA_array);
+
+figure(13);
+title("Reward")
+xlabel("time");
+ylabel("average reward");
+legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
+figure(14);
+title("Quality")
+xlabel("time");
+ylabel("percentage best action");
+legend("Sample average", "Constant step size", "UCB", "Preferences gradient");

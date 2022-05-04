@@ -10,7 +10,7 @@ BA_array = zeros(1,iter);
 R_avg = zeros(1,iter);
 epsilon = 0.03;
 
-for j = 1:1
+for j = 1:episodes
     Rtot=0; best_actions = 0;
     q = normrnd(0,10,1,10); %vettore che tiene conto di q
     Q = ones(1,10) * 10; %vettore che tiene conto delle stime di q
@@ -45,4 +45,4 @@ end
 R_avg = R_avg / episodes;
 BA_array = BA_array / episodes;
 
-save 003constant_stp_size_data_p.mat R_avg BA_array
+save 003constant_stp_size.mat R_avg BA_array

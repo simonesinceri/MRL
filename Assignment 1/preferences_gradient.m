@@ -8,7 +8,7 @@ iter = 1e5;
 episodes = 50;
 BA_array = zeros(1,iter);
 R_avg = zeros(1,iter);
-for j = 1:1
+for j = 1:episodes
     H = ones(1,10) * 10;
     Rtot = 0; best_actions = 0;
     q = normrnd(0,10,1,10); %vettore che tiene conto di q
