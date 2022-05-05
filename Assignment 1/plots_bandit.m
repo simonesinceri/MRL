@@ -285,7 +285,7 @@ xlabel("time");
 ylabel("percentage best action");
 legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
 
-%% Confronto riducendo randoma walks
+%% Confronto riducendo random walks
 load 1sample_average.mat R_avg BA_array
 figure(13);
 hold on;
@@ -328,3 +328,47 @@ title("Quality")
 xlabel("time");
 ylabel("percentage best action");
 legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
+
+% %%  q = q + 0.1*normrnd(0,10,1,10);
+% load 1.mat R_avg BA_array
+% figure(15);
+% hold on;
+% plot(1:length(R_avg),R_avg);
+% figure(16);
+% hold on;
+% plot(1:length(R_avg),BA_array);
+% 
+% load 4.mat R_avg BA_array
+% figure(15);
+% hold on;
+% plot(1:length(R_avg),R_avg);
+% figure(16);
+% hold on;
+% plot(1:length(R_avg),BA_array);
+% 
+% load 2.mat R_avg BA_array
+% figure(15);
+% hold on;
+% plot(1:length(R_avg),R_avg);
+% figure(16);
+% hold on;
+% plot(1:length(R_avg),BA_array);
+% 
+% load 3.mat R_avg BA_array
+% figure(15);
+% hold on;
+% plot(1:length(R_avg),R_avg);
+% figure(16);
+% hold on;
+% plot(1:length(R_avg),BA_array);
+% 
+% figure(15);
+% title("Reward")
+% xlabel("time");
+% ylabel("average reward");
+% legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
+% figure(16);
+% title("Quality")
+% xlabel("time");
+% ylabel("percentage best action");
+% legend("Sample average", "Constant step size", "UCB", "Preferences gradient");
